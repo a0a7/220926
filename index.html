@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protected Content</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 20px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .hint {
+            font-size: 16px;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+
+        input[type="text"] {
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            padding: 15px 20px;
+            font-size: 18px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 20px;
+            outline: none;
+            font-family: Arial, sans-serif;
+        }
+
+        input[type="text"]::placeholder {
+            color: #666666;
+        }
+
+        button {
+            background-color: #000000;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            padding: 15px 40px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .error {
+            color: #ff4444;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .content {
+            display: none;
+        }
+
+        .content.visible {
+            display: block;
+        }
+
+        .login-form {
+            display: block;
+        }
+
+        .login-form.hidden {
+            display: none;
+        }
+
+        .protected-content {
+            line-height: 1.8;
+            text-align: left;
+        }
+
+        .protected-content h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .protected-content p {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="login-form" id="loginForm">
+            <h1>снова здравствуйте</h1>
+            <h2>что означает число в URL-адресе этого веб-сайта</h1>
+            <input type="text" id="passwordInput" placeholder="введите ответ    ..." autocomplete="off">
+            <br>
+            <button onclick="checkPassword()">отправить</button>
+            <p class="error" id="errorMessage"></p>
+            <p class="hint">ответ состоит из одного английского слова, 11 букв.</p>
+        </div>
+
+        <div class="content" id="protectedContent">
+            <div class="protected-content">
+                <h2>омедето</h2>
+                <p style="text-align: center;">Есть стол, дно которого вам следует внимательно осмотреть. Он находится в комнате BULDAK RAMEN, которую использует KELVIN HOPE, и вы, возможно, помните, что он однажды ударил по нему.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Correct answer (lowercase for case-insensitive comparison)
+        const correctAnswer = "anniversary";
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value.trim().toLowerCase();
+            const errorMessage = document.getElementById('errorMessage');
+            const loginForm = document.getElementById('loginForm');
+            const protectedContent = document.getElementById('protectedContent');
+
+            if (input === correctAnswer) {
+                loginForm.classList.add('hidden');
+                protectedContent.classList.add('visible');
+                errorMessage.textContent = '';
+            } else {
+                errorMessage.textContent = 'неверный ответ. попробуйте еще раз.';
+            }
+        }
+
+        // Allow pressing Enter to submit
+        document.getElementById('passwordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                checkPassword();
+            }
+        });
+    </script>
+</body>
+</html>
